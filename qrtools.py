@@ -114,14 +114,19 @@ class QR(object):
         self.filename = filename or self.get_tmp_file()
         if not self.filename.endswith('.png'):
             self.filename += '.png'
-        return subprocess.Popen([
+        call = [
             self.qrencode_binary,
             '-o', self.filename,
             '-s', unicode(self.pixel_size),
             '-m', unicode(self.margin_size),
             '-l', self.level,
             self.data_to_string()
-        ]).wait()
+        ]
+        for i, param in enumerate(call):
+            if isinstance(param, unicode):
+                param = param.encode(sys.getfilesystemencoding())
+                call[i] = param
+        return subprocess.Popen(call).wait()
 
     def encode_to(self, fileptr):
         call = [
