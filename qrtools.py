@@ -80,7 +80,7 @@ class QR(object):
 
     def __init__(
         self, data=u'NULL', pixel_size=3, level='L', margin_size=4,
-        data_type=u'text', filename=None, qrencode_binary=None
+        data_type=u'text', filename=None, qrencode_binary=None, directory=None
     ):
         self.pixel_size = pixel_size
         self.level = level
@@ -89,7 +89,7 @@ class QR(object):
         #you should pass data as a unicode object.
         self.data = data
         # get a temp directory, will be created when needed
-        self.directory = None
+        self.directory = directory
         self.filename = filename
         if qrencode_binary:
             self.qrencode_binary = qrencode_binary
